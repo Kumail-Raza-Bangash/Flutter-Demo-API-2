@@ -15,7 +15,40 @@ class _HomePageState extends State<HomePage> {
   List<UserDetails> userDetails = [];
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return FutureBuilder(
+      future: getData(),
+      builder: (context, snapshot){
+        if(snapshot.hasData){
+          return ListView.builder(
+            itemCount: userDetails.length,
+            itemBuilder: (context, index){
+              return Container(
+                height: 200,
+                decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: 'data'),
+                          TextSpan(text: 'data'),
+                        ]
+                        
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        }
+        else{
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
   }
 
    Future<List<UserDetails>> getData() async {
