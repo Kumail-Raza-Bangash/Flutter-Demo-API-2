@@ -20,22 +20,25 @@ class _HomePageState extends State<HomePage> {
       builder: (context, snapshot){
         if(snapshot.hasData){
           return ListView.builder(
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             itemCount: userDetails.length,
             itemBuilder: (context, index){
               return Container(
+                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                margin: const EdgeInsets.only(bottom: 10),
                 height: 200,
-                decoration: BoxDecoration(color: Colors.black12, borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: Colors.black, borderRadius: BorderRadius.circular(10)),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(text: 'data'),
-                          TextSpan(text: 'data'),
-                        ]
-                        
-                      ),
-                    ),
+                    getText(index, "ID: ", userDetails[index].id.toString()),
+                    getText(index, "Name: ", userDetails[index].name.toString()),
+                    getText(index, "Email: ", userDetails[index].email.toString()),
+                    getText(index, "Phone Number: ", userDetails[index].phone.toString()),
+                    getText(index, "Wbsite: ", userDetails[index].website.toString()),
+                    getText(index, "Company Name: ", userDetails[index].company.name.toString()),
+                    getText(index, "Address: ", '${userDetails[index].address.suite.toString()}, ${userDetails[index].address.street.toString()}, ${userDetails[index].address.city.toString()} - ${userDetails[index].address.zipcode.toString()}'),
                   ],
                 ),
               );
@@ -49,6 +52,18 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
+  }
+
+  Text getText(int index, String fieldName, String content) {
+    return Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(text: fieldName, style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold,),),
+                        TextSpan(text: content, style: const TextStyle(fontSize: 14, color: Colors.white,),),
+                      ]
+                      
+                    ),
+                  );
   }
 
    Future<List<UserDetails>> getData() async {
