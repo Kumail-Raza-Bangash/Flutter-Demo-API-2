@@ -1,4 +1,8 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_demo_api_2/model.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,19 +18,24 @@ class _HomePageState extends State<HomePage> {
     return Container();
   }
 
-  
-  Future <List<userDetails>> getData() async {
-    final response = await http.get(Uri.parse('ff'));
+   Future<List<UserDetails>> getData() async {
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
 
     var data = jsonDecode(response.body.toString());
 
     if(response.statusCode == 200){
-      userDetails.add(UserDetails.fromJson(index));
+      for(Map<String, dynamic> index in data){
+        userDetails.add(UserDetails.fromJson(index));
+      }
+      return userDetails;
     }
-    return userDetails;
+    
     else{
       return userDetails;
-
     }
   }
+  
 }
+
+
+ 
